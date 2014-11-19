@@ -25,3 +25,9 @@ The main functions are:
 The following additional functions are needed (work in progress):
  - something to flatten the result and write the data out to a csv file.
  - something to check the day over day availability to infer occupancy.
+
+----
+The goal is to produce visualizations based on the scraped data.  These are a work in progress, but you can view some prototypes here:
+
+https://public.tableausoftware.com/profile/hamelsmu#!/vizhome/Airbnb/Dashboard1
+
