@@ -473,30 +473,6 @@ def getSpaceInfo(tree, ListingID = 'Test'):
 
 if __name__ == '__main__':   
     
-    testurls = ['https://www.airbnb.com/rooms/3861471',
-                'https://www.airbnb.com/rooms/3953475',
-                'https://www.airbnb.com/rooms/3825474',
-                'https://www.airbnb.com/rooms/4164826',
-                'https://www.airbnb.com/rooms/3510127']
-    space = []
-    about = []
-    """
-    mainpage = ParseMainXML()
-    
-    for url in testurls:
-        tree = html.fromstring(br.open(url).get_data())
-        rspace = getSpaceInfo(tree)
-        rabout = getAboutListing(tree)
-        space.append(rspace)
-        about.append(rabout)
-        """
     test = IterateMainPage('Cambridge--MA', 1)
     test2 = iterateDetail(test)
-    
-
-    """    
-    with open('testOutput.csv', 'wb') as f:
-        csv_file = csv.writer(f)
-        for line in test:
-            csv_file.writerow(test.values())
-            """
+    print test2
