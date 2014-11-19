@@ -3,7 +3,7 @@ AirbnbScrape
 
 Python Function To Scrape Airbnb
 
-This code was made for Harvard CS109 Data Science Class
+This is a working repository for the class proejct for Harvard CS109 Data Science Class, Fall 2014 Semester
 http://cs109.github.io/2014/
 
 Purpose:
