@@ -248,6 +248,20 @@ def collectDetail(treeObject, ListingID):
         #accuracy, communication, cleanliness, location, checkin, value
         Results['R_acc'], Results['R_comm'], Results['R_clean'], Results['R_loc'], \
         Results['R_CI'], Results['R_val'] = getStars(TreeToSoup(treeObject), ListingID)
+        #price
+        """
+         {'ExtraPeople': 'Not Found', 'CleaningFee': 'Not Found', 'SecurityDeposit': 'Not Found', 
+       'WeeklyPrice': 'Not Found','MonthlyPrice': 'Not Found','Cancellation' : 'Not Found'} 
+    
+        """
+        PriceData = getPriceInfo(treeObject, ListingID)
+        Results['P_ExtraPeople'] = PriceData['ExtraPeople']
+        Results['P_Cleaning'] = PriceData['CleaningFee']
+        Results['P_Deposit'] = PriceData['SecurityDeposit']
+        Results['P_Weekly'] = PriceData['WeeklyPrice']
+        Results['P_Monthly'] = PriceData['MonthlyPrice'] 
+        Results['Cancellation'] = PriceData['Cancellation']
+        
         
         return Results
         
@@ -374,6 +388,7 @@ def getAboutListing(tree, ListingID):
     except:
         print 'Error finding *About Listing* for listing ID: %s' % ListingID
         return 'No Description Found'
+
         
         
 def getSpaceInfo(tree, ListingID = 'Test'):  
@@ -465,6 +480,81 @@ def getSpaceInfo(tree, ListingID = 'Test'):
         print 'Error in getting Space Elements for listing iD: %s' % str(ListingID)
         return dat
         
+#######################################
+#  Xi's Functions #####################
+#######################################
+
+def getPriceInfo(tree, ListingID):      
+    """
+    input: xmltree object
+    output: dict
+    -----------------
+    This function parses an individual listing's page to find 
+    the all of the data in the "Price" row, such as Cleaning Fee, Security Deposit, Weekly Price, etc.
+    """ 
+    #Initialize Values
+    dat = {'ExtraPeople': 'Not Found', 'CleaningFee': 'Not Found', 'SecurityDeposit': 'Not Found', 
+       'WeeklyPrice': 'Not Found','MonthlyPrice': 'Not Found','Cancellation' : 'Not Found'} 
+    
+    try:
+        #Get Nodes That Contain The Grey Text, So That You Can Search For Sections
+        elements = tree.xpath('//*[@class="text-muted"]')
+    
+          #find The price portion of the page, 
+          #then go back up one level and sideways one level
+        for element in elements:
+          
+            if element.text.find('Prices') >= 0:
+                #If you find what you are looking for Go Up One Level Then Go Sideways
+                targetelement = element.getparent().getnext()
+                break
+            
+        #Depth - First Search of The Target Node
+        descendants = targetelement.iterdescendants()
+        
+        for descendant in descendants:
+            #check to make sure there is text in descendant
+            if descendant.text:                
+                ##Find Extra People Free ##
+                if descendant.text.find('Extra people:') >= 0:  
+                    prop =  descendant.xpath('.//strong/*')
+                    if len(prop) >= 1:
+                        dat['ExtraPeople'] = prop[0].text
+                
+                ##Find Cleaning Fee ####
+                if descendant.text.find('Cleaning Fee:') >= 0:
+                    prop =  descendant.xpath('.//strong/*')
+                    if len(prop) >= 1:
+                        dat['CleaningFee'] = prop[0].text
+                        
+                ##Find Security Deposit ####
+                if descendant.text.find('Security Deposit:') >= 0:
+                    prop =  descendant.xpath('.//strong/*')
+                    if len(prop) >= 1:
+                        dat['SecurityDeposit'] = prop[0].text
+                        
+                ##Find Weekly Price ####
+                if descendant.text.find('Weekly Price:') >= 0:
+                    prop =  descendant.xpath('.//strong/*')
+                    if len(prop) >= 1:
+                        dat['WeeklyPrice'] = prop[0].text
+                        
+                ##Find Monthly Price ####
+                if descendant.text.find('Monthly Price:') >= 0:
+                    prop =  descendant.xpath('.//strong/*')
+                    if len(prop) >= 1:
+                        dat['MonthlyPrice'] = prop[0].text
+                
+                ##Find Cancellation ####
+                if descendant.text.find('Cancellation:') >= 0:
+                    prop =  descendant.xpath('.//strong/*')
+                    if len(prop) >= 1:
+                        dat['Cancellation'] = prop[0].text  
+        return dat
+        
+    except:
+        print 'Error in getting Space Elements for listing iD: %s' % str(ListingID)
+        return dat
         
         
 #######################################
