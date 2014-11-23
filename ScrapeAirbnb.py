@@ -220,7 +220,6 @@ def getTree(url):
 
 def collectDetail(treeObject, ListingID):
     Results = {'AboutListing': 'Not Found', 
-                     'TheSpace': 'Not Found',
                      'HostName': 'Not Found',
                      'RespRate': 'Not Found',
                      'RespTime': 'Not Found',
@@ -231,13 +230,67 @@ def collectDetail(treeObject, ListingID):
                      'R_loc': 'Not Found',
                      'R_CI' : 'Not Found',
                      'R_val' : 'Not Found',
-                     'R_clean' : 'Not Found'
-                     }     
+                     'P_ExtraPeople' : 'Not Found',
+                     'P_Cleaning' : 'Not Found',
+                     'P_Deposit' : 'Not Found',
+                     'P_Weekly' : 'Not Found',
+                     'P_Monthly' : 'Not Found',
+                     'Cancellation' : 'Not Found',
+                     'A_Kitchen' : 0,
+                     'A_Internet' : 0,
+                     'A_TV' : 0, 
+                     'A_Essentials' : 0,
+                     'A_Shampoo' : 0,
+                     'A_Heat' : 0,
+                     'A_AC' : 0,
+                     'A_Washer' : 0,
+                     'A_Dryer' : 0,
+                     'A_Parking' : 0,
+                     'A_Internet' : 0,
+                     'A_CableTV' : 0,
+                     'A_Breakfast' :  0,
+                     'A_Pets' : 0,
+                     'A_FamilyFriendly' : 0,
+                     'A_Events' : 0,
+                     'A_Smoking' : 0,
+                     'A_Wheelchair' : 0,
+                     'A_Elevator' : 0,
+                     'A_Fireplace' : 0,
+                     'A_Intercom' : 0,
+                     'A_Doorman' : 0, 
+                     'A_Pool' : 0,
+                     'A_HotTub' : 0,
+                     'A_Gym' : 0,
+                     'A_SmokeDetector' : 0,
+                     'A_CarbonMonoxDetector' : 0,
+                     'A_FirstAidKit' : 0,
+                     'A_SafetyCard' : 0,
+                     'A_FireExt' : 0, 
+                     'S_PropType' : 'Not Found',
+                     'S_Accomodates' : 'Not Found',
+                     'S_Bedrooms' : 'Not Found',
+                     'S_Bathrooms' : 'Not Found',
+                     'S_NumBeds' : 'Not Found',
+                     'S_BedType' : 'Not Found',
+                     'S_CheckIn' : 'Not Found',
+                     'S_Checkout' : 'Not Found'
+                     }   
+                     
     try: 
         #Hamel's Functions
         ###################                    
         Results['AboutListing'] = getAboutListing(treeObject, ListingID)
-        Results['TheSpace'] = getSpaceInfo(treeObject, ListingID)
+        Space = getSpaceInfo(treeObject, ListingID)
+        Results['S_PropType'] = Space['PropType']
+        Results['S_Accomodates'] = Space['Accommodates']
+        Results['S_Bedrooms'] = Space['Bedrooms']
+        Results['S_Bathrooms'] = Space['Bathrooms'] 
+        Results['S_NumBeds'] = Space['NumBeds']
+        Results['S_BedType'] = Space['BedType']
+        Results['S_CheckIn'] = Space['CheckIn']
+        Results['S_Checkout'] = Space['CheckOut']
+            
+        
         
         #Yi's Functions
         ####################
@@ -248,12 +301,8 @@ def collectDetail(treeObject, ListingID):
         #accuracy, communication, cleanliness, location, checkin, value
         Results['R_acc'], Results['R_comm'], Results['R_clean'], Results['R_loc'], \
         Results['R_CI'], Results['R_val'] = getStars(TreeToSoup(treeObject), ListingID)
+        
         #price
-        """
-         {'ExtraPeople': 'Not Found', 'CleaningFee': 'Not Found', 'SecurityDeposit': 'Not Found', 
-       'WeeklyPrice': 'Not Found','MonthlyPrice': 'Not Found','Cancellation' : 'Not Found'} 
-    
-        """
         PriceData = getPriceInfo(treeObject, ListingID)
         Results['P_ExtraPeople'] = PriceData['ExtraPeople']
         Results['P_Cleaning'] = PriceData['CleaningFee']
@@ -262,7 +311,38 @@ def collectDetail(treeObject, ListingID):
         Results['P_Monthly'] = PriceData['MonthlyPrice'] 
         Results['Cancellation'] = PriceData['Cancellation']
         
-        
+        #Amenities
+        Am = getAmenities(treeObject, ListingID)
+        Results['A_Kitchen'] = Am['Kitchen']
+        Results['A_Internet'] = Am['Internet']
+        Results['A_TV'] = Am['TV'] 
+        Results['A_Essentials'] = Am['Essentials' ]
+        Results['A_Shampoo'] = Am['Shampoo'] 
+        Results['A_Heat'] = Am['Heating'] 
+        Results['A_AC'] = Am['Air Conditioning'] 
+        Results['A_Washer'] = Am['Washer'] 
+        Results['A_Dryer'] = Am['Dryer'] 
+        Results['A_Parking'] = Am['Free Parking on Premises'] 
+        Results['A_Internet'] = Am['Wireless Internet'] 
+        Results['A_CableTV'] = Am['Cable TV' ]
+        Results['A_Breakfast'] =  Am['Breakfast'] 
+        Results['A_Pets'] = Am['Pets Allowed'] 
+        Results['A_FamilyFriendly'] = Am['Family/Kid Friendly'] 
+        Results['A_Events'] = Am['Suitable for Events']
+        Results['A_Smoking'] = Am['Smoking Allowed'] 
+        Results['A_Wheelchair'] = Am['Wheelchair Accessible'] 
+        Results['A_Elevator'] = Am['Elevator in Building'] 
+        Results['A_Fireplace'] = Am['Indoor Fireplace' ]
+        Results['A_Intercom'] = Am['Buzzer/Wireless Intercom'] 
+        Results['A_Doorman'] = Am['Doorman'] 
+        Results['A_Pool'] = Am['Pool'] 
+        Results['A_HotTub'] = Am['Hot Tub'] 
+        Results['A_Gym'] = Am['Gym']
+        Results['A_SmokeDetector'] = Am['Smoke Detector'] 
+        Results['A_CarbonMonoxDetector'] = Am['Carbon Monoxide Detector'] 
+        Results['A_FirstAidKit'] = Am['First Aid Kit' ]
+        Results['A_SafetyCard'] = Am['Safety Card'] 
+        Results['A_FireExt'] = Am['Fire Extinguisher'] 
         return Results
         
     except:
@@ -555,7 +635,101 @@ def getPriceInfo(tree, ListingID):
     except:
         print 'Error in getting Space Elements for listing iD: %s' % str(ListingID)
         return dat
+
+#########################################
+#  Amenities ############################
+#########################################
+def getAmenitiesList(tree, ListingID):
+    """
+    input: xmltree object
+    output: list of available amenities
+    -----------------
+    This function parses an individual listing's page to find 
+    the amenities available in the listing.  The amenities that are available
+    are collected into a list.
+    """ 
+    amenities = []
+    
+    try:
+        #Get Nodes That Contain The Grey Text, So That You Can Search For Sections
+        elements = tree.xpath('//*[@class="text-muted"]')
         
+          #find The price portion of the page, 
+          #then go back up one level and sideways one level
+        for element in elements:
+          
+            if element.text.find('Amenities') >= 0:
+                #If you find what you are looking for Go Up One Level Then Go Sideways
+                targetelement = element.getparent().getnext()
+                break
+        
+        content = targetelement.xpath('//*[@class="expandable-content-full"]')
+        
+        
+        if len(content) >= 1:
+            for amenity in content[0].xpath('.//strong/text()'):
+                amenities.append(amenity.strip())
+                
+        return list(set(amenities))
+    
+    except:
+        print 'Error in getting amenities for listing iD: %s' % str(ListingID)
+        return amenities
+        
+
+def getAmenities(tree, ListingID):
+    """
+    input: xmltree object
+    output: dict of binary indication if amenity exists or not
+    -----------------
+    This function parses an individual listing's page to find 
+    the amenities available in the listing.  The amenities that are available
+    are collected into a list.
+    """     
+       
+       #Initialize Values
+    dat = {'Kitchen': 0, 'Internet': 0, 'TV': 0, 'Essentials' : 0,
+           'Shampoo': 0, 'Heating': 0, 'Air Conditioning': 0, 'Washer': 0, 
+           'Dryer': 0, 'Free Parking on Premises': 0, 
+           'Wireless Internet': 0, 'Cable TV' : 0,'Breakfast': 0, 'Pets Allowed': 0, 
+           'Family/Kid Friendly': 0, 'Suitable for Events': 0,
+           'Smoking Allowed': 0, 'Wheelchair Accessible': 0, 
+           'Elevator in Building': 0, 'Indoor Fireplace' : 0,
+           'Buzzer/Wireless Intercom': 0, 'Doorman': 0, 
+           'Pool': 0, 'Hot Tub': 0, 'Gym': 0,'Smoke Detector': 0, 
+           'Carbon Monoxide Detector': 0, 'First Aid Kit' : 0,
+           'Safety Card': 0, 'Fire Extinguisher': 0}    
+           
+    amenities = getAmenitiesList(tree, ListingID)
+    
+    for amenity in dat.keys():
+        if amenity in amenities:
+            dat[amenity] = 1
+    
+    return dat    
+    
+######################################
+#### Save Results ####################
+def writeToCSV(resultDict, outfile):
+    
+    colnames = [ 'ListingID', 'Title','UserID','baseurl',  'Price', \
+        'AboutListing','HostName', 'MemberDate', 'Lat','Long','BookInstantly','Cancellation',  \
+        'OverallCounter','PageCounter','PageNumber', \
+         'A_AC','A_Breakfast','A_CableTV','A_CarbonMonoxDetector','A_Doorman','A_Dryer','A_TV', \
+         'A_Elevator','A_Essentials','A_Events','A_FamilyFriendly','A_FireExt','A_Fireplace','A_FirstAidKit', \
+         'A_Gym','A_Heat','A_HotTub','A_Intercom','A_Internet','A_Kitchen','A_Parking','A_Pets','A_Pool','A_SafetyCard', \
+         'A_Shampoo','A_SmokeDetector','A_Smoking','A_Washer','A_Wheelchair', \
+         'P_Cleaning','P_Deposit','P_ExtraPeople','P_Monthly','P_Weekly', \
+         'R_CI','R_acc','R_clean','R_comm', \
+         'R_loc','R_val', \
+         'RespRate','RespTime', \
+         'S_Accomodates','S_Bathrooms','S_BedType','S_Bedrooms', \
+         'S_CheckIn','S_Checkout','S_NumBeds','S_PropType','ShortDesc']
+    
+    with open(outfile, 'wb') as f:
+        w = csv.DictWriter(f, fieldnames=colnames)
+        w.writeheader()
+        w.writerows(test2)     
         
 #######################################
 #  Testing ############################
@@ -565,4 +739,14 @@ if __name__ == '__main__':
     
     test = IterateMainPage('Cambridge--MA', 1)
     test2 = iterateDetail(test)
-    print test2
+    writeToCSV(test2, 'test2.csv')
+    
+#    testurls = ['https://www.airbnb.com/rooms/4041681', 
+#                'https://www.airbnb.com/rooms/4359160', 
+#                'https://www.airbnb.com/rooms/459074',
+#                'https://www.airbnb.com/rooms/4119620']
+#                
+#    for url in testurls:
+#        tree = getTree(url)
+#        print getAmenities(tree, url)
+    
