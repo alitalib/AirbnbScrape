@@ -11,7 +11,6 @@ import mechanize
 import cookielib
 from lxml import html
 import csv
-import json
 import re
 from random import randint
 from time import sleep
@@ -76,7 +75,7 @@ def IterateMainPage(location_string, loop_limit):
         for n in range(1, loop_limit+1):
             print 'Processing Main Page %s out of %s' % (str(n), str(loop_limit))
             #Implement random time delay for scraping
-            sleep(randint(10,30))
+            sleep(randint(0,2))
             current_url = ''.join([base_url, location_string, page_url, str(n)])
             MainResults += ParseMainXML(current_url, n)
         
@@ -172,8 +171,8 @@ def iterateDetail(mainResults):
     """
     finalResults = []
     counter = 0
-    
-    baseURL = 'https://www.airbnb.com/rooms/'    
+    baseURL = 'https://www.airbnb.com/rooms/'   
+       
     for listing in mainResults:
         counter += 1      
         print 'Processing Listing %s out of %s' % (str(counter), str(len(mainResults)))
@@ -194,6 +193,36 @@ def iterateDetail(mainResults):
         finalResults.append(newListing)
         
     return finalResults
+
+
+def fixDetail(mainResults, indexList):
+    
+    finalResults = mainResults[:]
+    baseURL = 'https://www.airbnb.com/rooms/'   
+    
+    #redoList = [61, 62, 63, 64, 65, 66, 67, 443, 444, 445, 446, 447, 448, 449, \
+    #450, 451, 452, 453, 454, 455, 456, 457, 458, 459]
+    
+    ######Only Modify This Part When You Want To Redo Certain Listings!!!###
+    
+    for i in indexList:
+        print 'fixing index %s' % str(i) 
+        listingID = str(finalResults[i]['ListingID'])
+        currentURL = ''.join([baseURL, listingID])
+        
+        #Get the tree         
+        tree = getTree(currentURL)
+        
+        #Parse the data out of the tree      
+        DetailResults = collectDetail(tree, listingID)
+        
+        #Collect Data
+        newListing = dict(finalResults[i].items() + DetailResults.items())
+        
+        #Append To Final Results
+        finalResults[i] = newListing
+        
+    return finalResults
         
         
 def getTree(url):
@@ -207,7 +236,7 @@ def getTree(url):
     """
     try:
         #Implement random time delay for scraping
-        sleep(randint(10,30))
+        #sleep(randint(0,1))
         tree = html.fromstring(br.open(url).get_data())
         return tree
         
@@ -392,7 +421,7 @@ def getHostResponse(soup, ListingID):
         return response_rate, response_time          
         
     except:
-        print 'Unable to parse host name for listing id: %s' % str(ListingID)
+        print 'Unable to parse response time for listing id: %s' % str(ListingID)
         return response_rate, response_time     
 
 
@@ -667,7 +696,7 @@ def getAmenitiesList(tree, ListingID):
         
         
         if len(content) >= 1:
-            for amenity in content[0].xpath('.//strong/text()'):
+            for amenity in content[0].xpath('.//span/strong/text()'):
                 amenities.append(amenity.strip())
                 
         return list(set(amenities))
@@ -729,7 +758,7 @@ def writeToCSV(resultDict, outfile):
     with open(outfile, 'wb') as f:
         w = csv.DictWriter(f, fieldnames=colnames)
         w.writeheader()
-        w.writerows(test2)     
+        w.writerows(resultDict)     
         
 #######################################
 #  Testing ############################
@@ -737,9 +766,9 @@ def writeToCSV(resultDict, outfile):
 
 if __name__ == '__main__':   
     
-    test = IterateMainPage('Cambridge--MA', 1)
+    test = IterateMainPage('Charlestown-MA', 5)
     test2 = iterateDetail(test)
-    writeToCSV(test2, 'test2.csv')
+    writeToCSV(test2, 'Charlestown11_24_2014.csv')
     
 #    testurls = ['https://www.airbnb.com/rooms/4041681', 
 #                'https://www.airbnb.com/rooms/4359160', 
