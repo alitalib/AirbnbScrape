@@ -29,5 +29,5 @@ The following additional functions are needed (work in progress):
 ----
 The goal is to produce visualizations based on the scraped data.  These are a work in progress, but you can view some prototypes here:
 
-https://public.tableausoftware.com/profile/hamelsmu#!/vizhome/Airbnb/Dashboard1
+https://public.tableausoftware.com/views/Airbnb/PriceFactors?:embed=y&:display_count=no
 
