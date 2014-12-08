@@ -25,7 +25,7 @@ The main functions are:
 3) **writeToCSV()**  this function takes care of writing the output to a csv file.  
 
 Example of how to run this code:
-
+```python
     #Iterate Through Main Page To Get Results
     MainResults = IterateMainPage('Cambridge--MA', 1)
     
@@ -35,6 +35,7 @@ Example of how to run this code:
     
     #Write Out Results To CSV File, using function I defined
     writeToCSV(DetailResults, 'CambridgeResults.csv')
+```
 
 Visualizations
 ====
