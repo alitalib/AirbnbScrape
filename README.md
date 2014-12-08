@@ -9,8 +9,9 @@ http://cs109.github.io/2014/
 Purpose:
 As a host of airbnb, we wanted to optimize the price of our listing, and wanted to understand things like: 
 - How other people priced around me, relative to dimensions such as amenities, reviews, instant booking status, etc?
-- Can I infer occupancy by looking at listing availability day over day and use that to optimize my price?
-- What items appear to most influence the page rank, or how high up a listings appears on search results?
+- Can I learn something about looking at other properties who are "successfull" on aribnb - with success being defined as having many reviews and able to charge competitive prices?  
+- Optimize the price for our listings by studying the data of similar properties around us
+- Learn intersting things from outliers.
 
 We wanted to be able to study this data, visualize it and see if we could glean additional insights than what is available on airbnb. 
 
@@ -21,13 +22,23 @@ The main functions are:
 
 2) **iterateDetail()**  this reads in the output of the function **IterateMainPage()** and visits each specific listing to get mroe detailed information.  If more detailed information is found, then the dictionary is updated to contain more values. 
 
-----
-The following additional functions are needed (work in progress):
- - something to flatten the result and write the data out to a csv file.
- - something to check the day over day availability to infer occupancy.
+3) **writeToCSV()**  this function takes care of writing the output to a csv file.  
 
-----
-The goal is to produce visualizations based on the scraped data.  These are a work in progress, but you can view some prototypes here:
+Example of how to run this code:
 
-https://public.tableausoftware.com/views/Airbnb/PriceFactors?:embed=y&:display_count=no
+    #Iterate Through Main Page To Get Results
+    MainResults = IterateMainPage('Cambridge--MA', 1)
+    
+    #Take The Main Results From Previous Step and Iterate Through Each Listing
+    #To add more detail
+    DetailResults = iterateDetail(MainResults)
+    
+    #Write Out Results To CSV File, using function I defined
+    writeToCSV(DetailResults, 'CambridgeResults.csv')
+
+Visualizations
+====
+We have hosted the visualizations for this project on the following website:
+
+https://public.tableausoftware.com/views/Airbnb/HamelsNieghborhood?:embed=y&:display_count=no
 
