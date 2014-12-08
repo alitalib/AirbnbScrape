@@ -766,16 +766,14 @@ def writeToCSV(resultDict, outfile):
 
 if __name__ == '__main__':   
     
-    test = IterateMainPage('Charlestown-MA', 5)
-    test2 = iterateDetail(test)
-    writeToCSV(test2, 'Charlestown11_24_2014.csv')
+    #Iterate Through Main Page To Get Results
+    MainResults = IterateMainPage('Cambridge--MA', 1)
     
-#    testurls = ['https://www.airbnb.com/rooms/4041681', 
-#                'https://www.airbnb.com/rooms/4359160', 
-#                'https://www.airbnb.com/rooms/459074',
-#                'https://www.airbnb.com/rooms/4119620']
-#                
-#    for url in testurls:
-#        tree = getTree(url)
-#        print getAmenities(tree, url)
+    #Take The Main Results From Previous Step and Iterate Through Each Listing
+    #To add more detail
+    DetailResults = iterateDetail(MainResults)
+    
+    #Write Out Results To CSV File, using function I defined
+    writeToCSV(DetailResults, 'CambridgeResults.csv')
+    
     
