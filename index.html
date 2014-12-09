@@ -67,21 +67,23 @@
 <p>As a host of airbnb, we wanted to optimize the price of our listing, and wanted to understand things like: </p>
 
 <ul>
-<li>How other people priced around me, relative to dimensions such as amenities, reviews, instant booking status, etc?</li>
-<li>Can I learn something about looking at other properties who are "successfull" on aribnb - with success being defined as having many reviews and able to charge competitive prices?<br>
+<li>How other people priced around me, relative to dimensions such as amenities, reviews, and location? </li>
+<li>Can I learn something about looking at other properties who are "successfull" on aribnb - with success being defined as acquiring many customers (potentially measured by number of reviews) and ability to price above market?<br>
 </li>
-<li>Optimize the price for our listings by studying the data of similar properties around us</li>
-<li>Learn intersting things from outliers.</li>
+<li>Optimize the price for our listings by studying the data of similar properties.</li>
+<li>What is the distribution of price in a given area?</li>
+<li>Are there certain neighborhoods that are substantially more expensive than others?</li>
+<li>What is the relationship between price and the frequency at which a listing is renting?</li>
 </ul>
 
-<p>We wanted to be able to study this data, visualize it and see if we could glean additional insights than what is available on airbnb. </p>
+<p>We wanted to be able to study this data, visualize it and see if we could glean additional insights than what is available on Airbnb. </p>
 
 <h1>
-<a id="table-of-contents" class="anchor" href="#table-of-contents" aria-hidden="true"><span class="octicon octicon-link"></span></a>Table Of Contents</h1>
+<a id="table-of-contents" class="anchor" href="#table-of-contents" aria-hidden="true"><span class="octicon octicon-link"></span></a>Methodology / Table Of Contents</h1>
 
-<p>1) <strong>Scraping Code:</strong> visit the <a href="https://github.com/hamelsmu/AirbnbScrape">github repository</a></p>
+<p>1) <strong>Scraping / Data Collection:</strong> visit the <a href="https://github.com/hamelsmu/AirbnbScrape">Github repository</a> for the code used to scrape Airbnb.</p>
 
-<p>Description:  We built a scraper to get data for over 2000 listings in the Boston area.  This code is generalized and can be used to scrape listings for any location.  The details of how to run are explained in the readme file of the associated repository.</p>
+<p>Description:  The code employed for scraping (ScrapeAirbnb.py) as well as the instructions on how to run this code (readme file) is located in the associated Github repository of this project. We built a scraper to get data for over 2000 listings in the Boston Metro area. Data scraped includes information on listings such as space (property type, number of bedrooms, number of bathrooms, etc.), amenities (kitchen, TV, internet, etc.), prices (cleaning fee, etc.), reviews, location (longitude, latitude, and location review), host information, and description. This code is generalized and can be used to scrape listings for any location. </p>
 <br>
 <p>2) <strong>Cleaning Code:</strong>  the <a href="https://github.com/hamelsmu/AirbnbScrape">github repository</a> also contains functions that we used to "clean" the data after scraping.  The name of this file is _____.py</p>
 <br>
