@@ -17,7 +17,17 @@ As a host of airbnb, we wanted to optimize the price of our listing, and wanted 
 
 We wanted to be able to study this data, visualize it and see if we could glean additional insights than what is available on airbnb. 
 
-###How To Use This Code:
+###Table of Contents 
+#####Scraping
+- **ScrapingAirbnb.py:**  this is the code that was used to scrape Airbnb.com  this code is very modular and can be re-used to scrape airbnb data for any location.  
+
+####Analysis
+- **AirbnbWrapUp.ipynb**: this file discusses analyses that was conducted with the scraped data.  
+- **DataCleanAirbnb.py**:  this file contains supporting functions for AirbnbWrapup.ipyb.  Used to clean the dataset and parse/remove features as appropriate.
+- **DummyOneHot.py**:  this file contains items that are located in AirbnbWrapup.ipynb.  Used to dummy code categorical variables.
+
+
+###How To Use The Scraping Code (ScrapingAirbnb.py):
 The main functions are:
 
 1) **IterateMainPage()**  this function takes in a location string, and page limit as a parameter and downloads a list of dictionaries which correspond to all of the distinct listings for that location.  For example, calling IterateMainPage('Cambridge--MA', 10) will scrape all of the distinct listings that appear on pages 1-10 of the page listings for that location.  The output from this function will then be a list of dictionaries with each dictionary item corresponding to one unique listing on each page.  The location string is in the format of 'City--State', as that is how the URL is structured.  
