@@ -3,8 +3,8 @@ AirbnbScrape
 
 Python Function To Scrape Airbnb
 
-This is a working repository for the class proejct for Harvard CS109 Data Science Class, Fall 2014 semester.
-http://cs109.github.io/2014/
+This is a working repository for the class proejct for [Harvard CS109 Data Science](http://cs109.github.io/2014/), Fall 2014 semester.
+
 
 The webiste for this project is: http://hamelsmu.github.io/AirbnbScrape/
 
