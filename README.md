@@ -3,10 +3,12 @@ AirbnbScrape
 
 Python Function To Scrape Airbnb
 
+The webiste for this project is: http://hamelsmu.github.io/AirbnbScrape/
+
 This is a working repository for the class proejct for [Harvard CS109 Data Science](http://cs109.github.io/2014/), Fall 2014 semester.
 
 
-The webiste for this project is: http://hamelsmu.github.io/AirbnbScrape/
+
 
 Purpose:
 As a host of airbnb, we wanted to optimize the price of our listing, and wanted to understand things like: 
