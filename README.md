@@ -18,7 +18,7 @@ As a host of airbnb, we wanted to optimize the price of our listing, and wanted 
 We wanted to be able to study this data, visualize it and see if we could glean additional insights than what is available on airbnb. 
 
 ###Table of Contents 
-#####Scraping
+####Scraping
 - **ScrapingAirbnb.py:**  this is the code that was used to scrape Airbnb.com  this code is very modular and can be re-used to scrape airbnb data for any location.  
 
 ####Analysis
