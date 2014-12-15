@@ -51,9 +51,4 @@ Example of how to run this code:
     writeToCSV(DetailResults, 'CambridgeResults.csv')
 ```
 
-Visualizations
-====
-We have hosted the visualizations for this project on the following website:
-
-https://public.tableausoftware.com/views/Airbnb/HamelsNieghborhood?:embed=y&:display_count=no
 
